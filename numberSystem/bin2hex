@@ -1,0 +1,67 @@
+#include <stdlib.h>
+#include <string.h>
+#include <stdio.h>
+
+/*Declaring variables*/
+int index_one = 0; 
+int index_two = 0;
+int decimal;
+char inputNumber[9001];  
+char result[9001];
+
+/* */
+/*Function Prototype*/
+void calculation();
+void printResult();
+/*Convertion using ASCII table*/
+void calculation()                    
+{
+	/*Ensuring that index_one start from 0*/
+	while (inputNumber[index_one]) {
+		inputNumber[index_one] = inputNumber[index_one]-'0';        
+		index_one++;                            
+	}
+	--index_one;
+	while( index_one - 2 >= 0) {	
+		/*Converting from binary number to decimal*/
+		decimal = inputNumber[index_one-3]*8+inputNumber[ index_one - 2] *4 + inputNumber[index_one-1]*2+inputNumber[index_one];     
+		
+		/*if the number is between 10-15 convert it to A-F
+		 * Could have been easier if the prof would allow the use of %X*/
+		if (decimal > 9){
+			result[index_two++] = decimal + '7';                                           
+		}
+		else {
+			result[index_two++] = decimal + '0';
+		}
+		index_one = index_one - 4;
+	}
+	/*Mapping ascii value */
+	if (index_one == 1) {
+		result[index_two] = inputNumber[index_one-1]*2 + inputNumber[index_one]+'0';   
+	}
+	/*More ascii value mapping*/
+	else if (index_one == 0) {
+	
+		result[index_two] = inputNumber[index_one]+'0';
+	}
+	/*hexadecimal value */
+	else{
+		index_two--; 
+	}
+	
+}
+/*index_twoust output the result.*/
+void printResult() {
+	while (index_two>=0)  {
+		printf("%c", result[index_two--]);
+	}
+	printf("\n");
+}
+int main(int argc, char *argv[])
+{
+	sscanf(argv[1],"%s",inputNumber);
+	calculation();
+	printResult();
+	return 0;
+}
