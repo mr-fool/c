@@ -7,9 +7,9 @@ int main(void) {
 	int b = 4;
 	int *px = &a;
 	int *py = &b;
-	printf("%s%d%s%d", "px and py before swapping ",&px," ",&py);
+	printf("px and py before swapping %d %d\n", *px, *py);
 	swap(px,py);
-	printf("%s%d%s%d", "px and py after swapping ",&px," ",&py);
+	printf("px and py after swapping %d %d\n", *px, *py);
 	return 0;
 }
 /*interchange *px and *py */
@@ -19,16 +19,3 @@ void  swap( int *px, int *py) {
 	*px = *py;
 	*py = temp;
 }
-/*
-gcc -Wall -c "swap.c" (in directory: /home/mr-fool/Documents/c/swap)
-swap.c: In function ‘main’:
-swap.c:10:2: warning: format ‘%d’ expects argument of type ‘int’, but argument 3 has type ‘int **’ [-Wformat=]
-  printf("%s%d%s%d", "px and py before swapping ",&px," ",&py);
-  ^
-swap.c:10:2: warning: format ‘%d’ expects argument of type ‘int’, but argument 5 has type ‘int **’ [-Wformat=]
-swap.c:12:2: warning: format ‘%d’ expects argument of type ‘int’, but argument 3 has type ‘int **’ [-Wformat=]
-  printf("%s%d%s%d", "px and py after swapping ",&px," ",&py);
-  ^
-swap.c:12:2: warning: format ‘%d’ expects argument of type ‘int’, but argument 5 has type ‘int **’ [-Wformat=]
-Compilation finished successfully.
-*/
