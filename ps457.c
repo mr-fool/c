@@ -2,14 +2,16 @@
 #include <stdlib.h>
 #include <sys/types.h>
 #include <dirent.h>
+#include <ctype.h>
 
 //Function Prototype
 void printDirectory(void);
 
-void main ( int argc, char *argv[] ) {
+int main ( int argc, char *argv[] ) {
 	if (argc == 1) {
 		printDirectory();
 	}
+	return 0;
 }
 void printDirectory(void){
 	//data type represents a directory stream. 
@@ -18,8 +20,9 @@ void printDirectory(void){
 	//creating a directory stream  
 	dir = opendir ("/proc");
 	if (dir != NULL){
-		while (ep = readdir (dir)) {
-			puts (ep->d_name);
+		 while( (ep = readdir(dir)) ){
+			 puts(ep -> d_name);
+
 		}//end while
 	(void) closedir (dir);
 	}
