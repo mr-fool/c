@@ -17,10 +17,12 @@ void printDirectory(void){
 	struct dirent *ep;   
 	//creating a directory stream  
 	dir = opendir ("/proc");
-	while (ep = readdir (dir)) {
-		if ( isdigit(ep)) {
-			puts (ep->d_name); //not print directory name for some reasons
-		}
-	}//end while
-	(void) closedir(dir);//close stream
+	if (dir != NULL){
+		while (ep = readdir (dir)) {
+			puts (ep->d_name);
+		}//end while
+	(void) closedir (dir);
+	}
+	else
+    perror ("Couldn't open the directory");
 }
