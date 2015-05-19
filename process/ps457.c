@@ -3,14 +3,23 @@
 #include <sys/types.h>
 #include <dirent.h>
 #include <ctype.h>
+#include <string.h>
 
 //Function Prototype
 void printDirectory(void);
 int numDir(const char* dirname);
+void printPID(int pid);
 
 int main ( int argc, char *argv[] ) {
+	int pid;
 	if (argc == 1) {
+		printf("%s\n","PID");
 		printDirectory();
+	}
+	else if (argc == 8) {
+		printf("%s\t%s\t%s\t%s\t%s\n","PID","state","utime","stime","vmem");
+		pid = atoi(argv[2]);
+		printPID(pid);
 	}
 	return 0;
 }
@@ -32,7 +41,7 @@ void printDirectory(void){
 	else
     perror ("Couldn't open the directory");
 }
-
+//iterate array to check if it is digit
 int numDir(const char* dirname) {
 	while(*dirname) {
 		if(!isdigit(*dirname++)) {
@@ -40,4 +49,8 @@ int numDir(const char* dirname) {
 		}
 	}
 	return 1;
+}
+
+void printPID(int pid){
+	printf("%d\t",pid);
 }
