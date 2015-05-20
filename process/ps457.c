@@ -4,12 +4,19 @@
 #include <dirent.h>
 #include <ctype.h>
 #include <string.h>
+#include <stdbool.h>
 
 //Function Prototype
 void printDirectory(void);
 int numDir(const char* dirname);
 void printPID(int pid);
 void commandCheck(int argc, char *argv[]);
+int *directoryList(void);
+bool checkPid(int id);
+
+//Global variable
+int pid;
+int directory[100000];
 
 int main ( int argc, char *argv[] ) {
 	if (argc == 1) {
@@ -34,7 +41,7 @@ void printDirectory(void){
 			}//end if
 		}//end while
 		
-	(void) closedir (dir);
+	closedir (dir);
 	}
 	else
     perror ("Couldn't open the directory");
@@ -52,9 +59,9 @@ int numDir(const char* dirname) {
 void printPID(int pid){
 	printf("%d\t",pid);
 }
+//parsing command line option
 void commandCheck(int argc, char *argv[]){
 	int i;
-	int pid;
 	for (i = 1; i < argc; i++) {
 		if (argv[i][0] == '-') {
 			switch (argv[i][1]) {
@@ -80,4 +87,29 @@ void commandCheck(int argc, char *argv[]){
 			}//end switch
 		}//end if
 	}
+}
+bool checkPid(int id){
+	
+}
+int *directoryList(void){
+	int i = 0;
+	//data type represents a directory stream. 
+	DIR *dir;
+	struct dirent *ep;   
+	//creating a directory stream  
+	dir = opendir ("/proc");
+	if (dir != NULL){
+		while( (ep = readdir(dir)) ){
+			if(numDir(ep->d_name)) {
+				directory[i] = 	(ep->d_name);
+				i++;
+			}//end if
+		}//end while
+		
+	closedir (dir);
+	}
+	else {
+		perror ("Couldn't open the directory");
+	}//end else
+	return directory;
 }
