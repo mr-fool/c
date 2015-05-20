@@ -9,40 +9,15 @@
 void printDirectory(void);
 int numDir(const char* dirname);
 void printPID(int pid);
+void commandCheck(int argc, char *argv[]);
 
 int main ( int argc, char *argv[] ) {
-	int pid;
 	if (argc == 1) {
 		printf("%s\n","PID");
 		printDirectory();
 	}
 	else if (argc > 1) {
-		printf("%s%zu\n","The size of ", sizeof(argv));
-		printf("%s%d\n","The length is ", argc);
-		size_t i;
-		for (i = 0; i < strlen(argv[1]); i++) {
-			switch(argv[1][i]) {
-				case 'p':
-					pid = atoi(argv[i++]);
-					break;
-				case 's':
-					printf("%s\n","State option reached");
-					break;
-				case 'U':
-					printf("%s\n","utime option reached");
-					break;
-				case 'S':
-					printf("%s\n","utime option reached");
-					break;
-				case 'v':
-					printf("%s\n","vmen option reached");
-					break;
-				case 'c':
-					printf("%s\n","cmdline option reached");
-					break;
-			}
-		}
-		printPID(pid);
+		commandCheck(argc,argv);
 	}
 	return 0;
 }
@@ -76,4 +51,33 @@ int numDir(const char* dirname) {
 
 void printPID(int pid){
 	printf("%d\t",pid);
+}
+void commandCheck(int argc, char *argv[]){
+	int i;
+	int pid;
+	for (i = 1; i < argc; i++) {
+		if (argv[i][0] == '-') {
+			switch (argv[i][1]) {
+				case 'p':
+					pid = atoi(argv[i+1]);
+					printPID(pid);
+					break;
+				case 's':
+					printf("%s\n","State option reached");
+					break;
+				case 'U':
+					printf("%s\n","utime option reached");
+					break;
+				case 'S':
+					printf("%s\n","utime option reached");
+					break;
+				case 'v':
+					printf("%s\n","vmen option reached");
+					break;
+				case 'c':
+					printf("%s\n","cmdline option reached");
+					break;
+			}//end switch
+		}//end if
+	}
 }
