@@ -17,11 +17,12 @@ int main ( int argc, char *argv[] ) {
 		printDirectory();
 	}
 	else if (argc > 1) {
+		printf("%s%zu\n","The size of ", sizeof(argv));
 		int i;
 		for (i = 0; i < sizeof(argv)/sizeof(char); i++) {
 			switch(argv[1][i]) {
 				case 'p':
-					pid = atoi(argv[i+1]);
+					pid = atoi(argv[i++]);
 					break;
 				case 's':
 					printf("%s\n","State option reached");
@@ -75,11 +76,3 @@ int numDir(const char* dirname) {
 void printPID(int pid){
 	printf("%d\t",pid);
 }
-/*
-./ps457.out -p 1 -s -U
-State option reached
-1	[mr-fool@localhost HW]$ ./ps457.out -s -U
-State option reached
-utime option reached
-
-*/
