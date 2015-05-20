@@ -18,8 +18,9 @@ int main ( int argc, char *argv[] ) {
 	}
 	else if (argc > 1) {
 		printf("%s%zu\n","The size of ", sizeof(argv));
-		int i;
-		for (i = 0; i < sizeof(argv)/sizeof(char); i++) {
+		printf("%s%d\n","The length is ", argc);
+		size_t i;
+		for (i = 0; i < strlen(argv[1]); i++) {
 			switch(argv[1][i]) {
 				case 'p':
 					pid = atoi(argv[i++]);
