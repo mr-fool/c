@@ -16,9 +16,30 @@ int main ( int argc, char *argv[] ) {
 		printf("%s\n","PID");
 		printDirectory();
 	}
-	else if (argc == 8) {
-		printf("%s\t%s\t%s\t%s\t%s\n","PID","state","utime","stime","vmem");
-		pid = atoi(argv[2]);
+	else if (argc > 1) {
+		int i;
+		for (i = 0; i < sizeof(argv)/sizeof(char); i++) {
+			switch(argv[1][i]) {
+				case 'p':
+					pid = atoi(argv[i+1]);
+					break;
+				case 's':
+					printf("%s\n","State option reached");
+					break;
+				case 'U':
+					printf("%s\n","utime option reached");
+					break;
+				case 'S':
+					printf("%s\n","utime option reached");
+					break;
+				case 'v':
+					printf("%s\n","vmen option reached");
+					break;
+				case 'c':
+					printf("%s\n","cmdline option reached");
+					break;
+			}
+		}
 		printPID(pid);
 	}
 	return 0;
@@ -54,3 +75,11 @@ int numDir(const char* dirname) {
 void printPID(int pid){
 	printf("%d\t",pid);
 }
+/*
+./ps457.out -p 1 -s -U
+State option reached
+1	[mr-fool@localhost HW]$ ./ps457.out -s -U
+State option reached
+utime option reached
+
+*/
