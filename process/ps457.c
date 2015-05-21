@@ -13,10 +13,12 @@ void printPID(int pid);
 void commandCheck(int argc, char *argv[]);
 int *directoryList(void);
 bool checkPid(int id);
+char state(int id);
 
 //Global variable
 int pid;
 int directory[100000];
+char stateChar;
 
 int main ( int argc, char *argv[] ) {
 	if (argc == 1) {
@@ -26,6 +28,8 @@ int main ( int argc, char *argv[] ) {
 	else if (argc > 1) {
 		commandCheck(argc,argv);
 	}
+	state(pid);
+	printf("%s%c\n","the state is ",stateChar);
 	return 0;
 }
 void printDirectory(void){
@@ -127,4 +131,35 @@ int *directoryList(void){
 	}//end else
 	return directory;
 }
-
+char state(int id){
+	int i;
+	//reading file
+	FILE *fp;
+	fp=fopen("/proc/"+id, "r");
+	long int size = ftell(fp);
+	rewind(fp);
+	//copying file to a string 
+    char* content = calloc(size + 1, 1);
+    fread(content,1,size,fp);
+    //parse 
+    for (i =0;i < sizeof(content); i++) {
+		switch (content[i]){
+			case 'R':
+				stateChar = 'R';
+				break;
+			case 'S':
+				stateChar = 'S';
+				break;
+			case 'D':
+				stateChar = 'D';
+				break;
+			case 'Z':
+				stateChar = 'Z';
+				break;
+			case 'T':
+				stateChar = 'T';
+				break;
+		}//end switch
+	}//end for 
+	return stateChar;
+}
