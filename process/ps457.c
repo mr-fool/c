@@ -28,7 +28,6 @@ int main ( int argc, char *argv[] ) {
 	else if (argc > 1) {
 		commandCheck(argc,argv);
 	}
-	state(10);
 	printf("%s%c\n","the state is ",stateChar);
 	return 0;
 }
@@ -76,10 +75,11 @@ void commandCheck(int argc, char *argv[]){
 						printf("%s\n", "the directory is incorrect");
 						exit(0);
 					}
-					//printPID(pid);
+					printPID(pid);
 					break;
 				case 's':
 					printf("%s\n","State option reached");
+					state(pid);
 					break;
 				case 'U':
 					printf("%s\n","utime option reached");
@@ -132,57 +132,34 @@ int *directoryList(void){
 	return directory;
 }
 char state(int id){
-	int i;
+	//int i;
 	//reading file
 	FILE *fp;
 	char address[100000];
+	char str[100000];
 	sprintf(address,"%s%d%s","/proc/",id,"/stat");
-	printf("%s%s\n","the directory is ",address);
+	//printf("%s%s\n","the directory is ",address);
 	fp=fopen(address, "r");
-	long int size = ftell(fp);
-	rewind(fp);
-	//copying file to a string 
-    char* content = calloc(size + 1, 1);
-    fread(content,1,size,fp); 
-    //parse 
-    int length = sizeof(content)/sizeof(content[0]);
-    for (i =0;i < length; i++) {
-		printf("%s%s\n", "the content is ",content[i]);
-		switch (content[i]){
-			case 'R':
-				stateChar = 'R';
-				break;
-			case 'S':
-				stateChar = 'S';
-				break;
-			case 'D':
-				stateChar = 'D';
-				break;
-			case 'Z':
-				stateChar = 'Z';
-				break;
-			case 'T':
-				stateChar = 'T';
-				break;
-		}//end switch
-	} //end for 
+	if (fp == NULL) {
+		exit(EXIT_FAILURE);
+	}//end if
+	while( fscanf(fp, "%s", str) != EOF) {
+        //printf("%s\n", str);	
+        if ( strcmp(str,"R") ==0) {
+			stateChar = 'R';
+		}
+		else if ( strcmp(str,"S") == 0 ) {
+			stateChar = 'S';
+		}
+		else if ( strcmp(str,"D") == 0 ) {
+			stateChar = 'D';
+		}
+		else if ( strcmp(str,"Z") == 0 ) {
+			stateChar = 'Z';
+		}
+		else if ( strcmp(str,"T") == 0 ) {
+			stateChar = 'T';
+		}
+	}//end while
 	return stateChar;
 }
-/*
-./ps457.out -p 10 -s -U -S -v -c
-State option reached
-utime option reached
-utime option reached
-vmen option reached
-cmdline option reached
-the directory is /proc/10/stat
-the content is (null)
-the content is (null)
-the content is (null)
-the content is (null)
-the content is (null)
-the content is (null)
-the content is (null)
-the content is (null)
-the state is 
-*/
