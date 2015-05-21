@@ -167,3 +167,21 @@ char state(int id){
 	} //end for 
 	return stateChar;
 }
+/*
+./ps457.out -p 10 -s -U -S -v -c
+State option reached
+utime option reached
+utime option reached
+vmen option reached
+cmdline option reached
+the directory is /proc/10/stat
+the content is 
+the content is 
+the content is 
+the content is 
+the content is 
+the content is 
+the content is 
+the content is 
+the state is 
+*/
