@@ -10,17 +10,24 @@
 void printDirectory(void);
 int numDir(const char* dirname);
 void printPID(int pid);
+void printState(char stateChar);
 void commandCheck(int argc, char *argv[]);
 int *directoryList(void);
 bool checkPid(int id);
 char state(int id);
+void resultHeader(void);
 
 //Global variable
 int pid;
 int directory[100000];
-char stateChar;
+char stateChar = '1';
 int flag_pid;
 int flag_state;
+int flag_utime;
+int flag_stime;
+int flag_vmen;
+int flag_cmdline;
+
 int main ( int argc, char *argv[] ) {
 	if (argc == 1) {
 		printf("%s\n","PID");
@@ -29,7 +36,7 @@ int main ( int argc, char *argv[] ) {
 	else if (argc > 1) {
 		commandCheck(argc,argv);
 	}
-	printf("%s%c\n","the state is ",stateChar);
+	//printf("%s%c\n","the state is ",stateChar);
 	return 0;
 }
 void printDirectory(void){
@@ -61,7 +68,9 @@ int numDir(const char* dirname) {
 }
 
 void printPID(int pid){
-	printf("%d\t",pid);
+	if (pid != 0) {
+		printf("%d\t",pid);
+	}
 }
 //parsing command line option
 void commandCheck(int argc, char *argv[]){
@@ -77,31 +86,49 @@ void commandCheck(int argc, char *argv[]){
 						exit(0);
 					}
 					flag_pid = 1;
-					printPID(pid);
+					//printPID(pid);
 					break;
 				case 's':
 					flag_state = 1;
 					break;
 				case 'U':
-					printf("%s\n","utime option reached");
+					flag_utime = 1;
 					break;
 				case 'S':
-					printf("%s\n","stime option reached");
+					flag_stime = 1;
 					break;
 				case 'v':
-					printf("%s\n","vmen option reached");
+					flag_vmen = 1;
 					break;
 				case 'c':
-					printf("%s\n","cmdline option reached");
+					flag_cmdline = 1;
 					break;
 			}//end switch
 		}//end if
-		if (flag_pid == 1 && flag_state == 1) {
+		/*if (flag_pid == 1 && flag_state == 1) {
 			state(pid);
 			printf("%s%c\n","the state is ",stateChar);
 
-		}
+		}*/
+	}//end for
+	resultHeader();
+	printPID(pid);
+	if (flag_pid == 1 && flag_state == 1) {
+		state(pid);
+		printState(stateChar);
 	}
+	else if (flag_pid == 0 && flag_state == 1) {
+		printf("no pid and state reached");
+		directoryList();
+		int i;
+		for(i = 0; i < sizeof(directory) / sizeof(directory[0]); i++) {
+			state(directory[i]);
+			printf("PID\t");
+			printPID(directory[i]);
+			printState(stateChar);
+		}//end for 
+	}
+	//printf("%s%c\n","The stateChar is ", stateChar);
 }
 bool checkPid(int id){
 	int i;
@@ -168,4 +195,30 @@ char state(int id){
 		}
 	}//end while
 	return stateChar;
+}
+void resultHeader(void) {
+	if (flag_pid == 1) {
+		printf("PID\t");
+	}
+	if (flag_state == 1) {
+		printf("state\t");
+	}
+	if (flag_utime == 1) {
+		printf("utime\t");
+	}
+	if (flag_stime == 1) {
+		printf("stime\t");
+	}
+	if (flag_vmen == 1) {
+		printf("vmen\t");
+	}
+	if (flag_cmdline == 1) {
+		printf("cmdline\t");
+	}
+	printf("\n");
+}
+void printState(char stateChar){
+	if (stateChar != '1') {
+		printf("%c\t", stateChar);
+	}
 }
