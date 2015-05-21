@@ -28,7 +28,7 @@ int main ( int argc, char *argv[] ) {
 	else if (argc > 1) {
 		commandCheck(argc,argv);
 	}
-	state(pid);
+	state(10);
 	printf("%s%c\n","the state is ",stateChar);
 	return 0;
 }
@@ -132,17 +132,20 @@ int *directoryList(void){
 	return directory;
 }
 char state(int id){
-	int i;
+	//int i;
 	//reading file
-	FILE *fp;
-	fp=fopen("/proc/"+id, "r");
+	//FILE *fp;
+	char address[100000];
+	sprintf(address,"%s%d%s","/proc/",id,"/stat");
+	printf("%s%s\n","the directory is ",address);
+	/*fp=fopen("/proc/"+id, "r");
 	long int size = ftell(fp);
 	rewind(fp);
 	//copying file to a string 
     char* content = calloc(size + 1, 1);
-    fread(content,1,size,fp);
+    fread(content,1,size,fp); */
     //parse 
-    for (i =0;i < sizeof(content); i++) {
+    /*for (i =0;i < sizeof(content); i++) {
 		switch (content[i]){
 			case 'R':
 				stateChar = 'R';
@@ -160,15 +163,6 @@ char state(int id){
 				stateChar = 'T';
 				break;
 		}//end switch
-	}//end for 
+	}*/ //end for 
 	return stateChar;
 }
-/*
-./ps457.out -p 10 -s -U -S -v -c
-State option reached
-utime option reached
-utime option reached
-vmen option reached
-cmdline option reached
-Segmentation fault (core dumped)
-*/
