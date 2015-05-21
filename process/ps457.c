@@ -87,7 +87,7 @@ void commandCheck(int argc, char *argv[]){
 					printf("%s\n","utime option reached");
 					break;
 				case 'S':
-					printf("%s\n","utime option reached");
+					printf("%s\n","stime option reached");
 					break;
 				case 'v':
 					printf("%s\n","vmen option reached");
