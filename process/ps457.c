@@ -145,8 +145,9 @@ char state(int id){
     char* content = calloc(size + 1, 1);
     fread(content,1,size,fp); 
     //parse 
-    for (i =0;i < sizeof(content); i++) {
-		printf("%s%c\n", "the content is ",content[i]);
+    int length = sizeof(content)/sizeof(content[0]);
+    for (i =0;i < length; i++) {
+		printf("%s%s\n", "the content is ",content[i]);
 		switch (content[i]){
 			case 'R':
 				stateChar = 'R';
@@ -167,21 +168,3 @@ char state(int id){
 	} //end for 
 	return stateChar;
 }
-/*
-./ps457.out -p 10 -s -U -S -v -c
-State option reached
-utime option reached
-utime option reached
-vmen option reached
-cmdline option reached
-the directory is /proc/10/stat
-the content is 
-the content is 
-the content is 
-the content is 
-the content is 
-the content is 
-the content is 
-the content is 
-the state is 
-*/
