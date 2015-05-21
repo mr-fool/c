@@ -5,7 +5,7 @@
 #include <ctype.h>
 #include <string.h>
 #include <stdbool.h>
-
+// cd /proc/1 && cat stat | gawk '{ printf $2 } '
 //Function Prototype
 void printDirectory(void);
 int numDir(const char* dirname);
@@ -16,7 +16,11 @@ int *directoryList(void);
 bool checkPid(int id);
 char state(int id);
 void resultHeader(void);
-
+void utime(int id);
+void stime(int id);
+void vmen(int id);
+void cmdline(int id);
+void noPID(void);
 //Global variable
 int pid;
 int directory[100000];
@@ -71,6 +75,7 @@ void printPID(int pid){
 	if (pid != 0) {
 		printf("%d\t",pid);
 	}
+	fflush(stdout);
 }
 //parsing command line option
 void commandCheck(int argc, char *argv[]){
@@ -105,29 +110,48 @@ void commandCheck(int argc, char *argv[]){
 					break;
 			}//end switch
 		}//end if
-		/*if (flag_pid == 1 && flag_state == 1) {
-			state(pid);
-			printf("%s%c\n","the state is ",stateChar);
-
-		}*/
 	}//end for
+	printf("PID\t");
 	resultHeader();
-	printPID(pid);
-	if (flag_pid == 1 && flag_state == 1) {
-		state(pid);
-		printState(stateChar);
-	}
-	else if (flag_pid == 0 && flag_state == 1) {
-		printf("no pid and state reached");
-		directoryList();
-		int i;
-		for(i = 0; i < sizeof(directory) / sizeof(directory[0]); i++) {
-			state(directory[i]);
-			printf("PID\t");
-			printPID(directory[i]);
+	if (pid != 0) { // there is pid	
+		printPID(pid);
+		if (flag_state == 1) {
+			state(pid);
 			printState(stateChar);
+		}
+		if (flag_utime == 1) {
+			utime(pid);
+		}
+		if (flag_stime == 1){
+			stime(pid);
+		}
+		if (flag_stime == 1){
+			vmen(pid);
+		}
+	}// end if 
+	//no pid case
+	else if (pid == 0) {
+		int j;
+		directoryList();
+		int size = sizeof(directory)/sizeof(directory[0]);
+		for (j=0; j < size; j++) {
+			printPID(directory[j]);
+		if (flag_state == 1) {
+			state(directory[j]);
+			printState(stateChar);
+		}
+		if (flag_utime == 1) {
+			utime(directory[j]);
+		}
+		if (flag_stime == 1){
+			stime(directory[j]);
+		}
+		if (flag_stime == 1){
+			vmen(directory[j]);
+		}//end if
+		printf("\n");
 		}//end for 
-	}
+	}//end else
 	//printf("%s%c\n","The stateChar is ", stateChar);
 }
 bool checkPid(int id){
@@ -197,9 +221,6 @@ char state(int id){
 	return stateChar;
 }
 void resultHeader(void) {
-	if (flag_pid == 1) {
-		printf("PID\t");
-	}
 	if (flag_state == 1) {
 		printf("state\t");
 	}
@@ -221,4 +242,33 @@ void printState(char stateChar){
 	if (stateChar != '1') {
 		printf("%c\t", stateChar);
 	}
+	fflush(stdout);
+}
+void utime(int id) {
+	char command[50];
+	sprintf(command,"%s%d%s","cd /proc/",id," && cat stat | gawk '{ printf $14 }' ");
+	system(command);
+	printf("\t");
+	fflush(stdout);
+}
+void stime(int id){
+	char command[50];
+	sprintf(command,"%s%d%s","cd /proc/",id," && cat stat | gawk '{ printf $15 }' ");
+	system(command);
+	printf("\t");
+	fflush(stdout);
+}
+void vmen(int id) {
+	char command[50];
+	sprintf(command,"%s%d%s","cd /proc/",id," && cat statm | gawk '{ printf $1 }' ");
+	system(command);
+	printf("\t");
+	fflush(stdout);
+}
+void cmdline(int id) {
+	char command[50];
+	sprintf(command,"%s%d%s","cd /proc/",id," && cat cmdline | gawk '{ printf $1 } ' ");
+	system(command);
+	printf("\t");
+	fflush(stdout);
 }
