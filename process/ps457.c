@@ -67,7 +67,11 @@ void commandCheck(int argc, char *argv[]){
 			switch (argv[i][1]) {
 				case 'p':
 					pid = atoi(argv[i+1]);
-					printPID(pid);
+					directoryList();
+					if ( checkPid(pid) == true) {
+						printf("%s\n", "the directory is correct");
+					}
+					//printPID(pid);
 					break;
 				case 's':
 					printf("%s\n","State option reached");
@@ -89,7 +93,14 @@ void commandCheck(int argc, char *argv[]){
 	}
 }
 bool checkPid(int id){
-	
+	int i;
+	int array_size = sizeof(directory)/sizeof(int);
+	for(i=0; i< array_size;i++){
+		if (id == directory[i]) {
+			return true;
+		}//end if
+	}
+	return false;
 }
 int *directoryList(void){
 	int i = 0;
@@ -98,10 +109,12 @@ int *directoryList(void){
 	struct dirent *ep;   
 	//creating a directory stream  
 	dir = opendir ("/proc");
+	//printf("%s\n","directory");
 	if (dir != NULL){
 		while( (ep = readdir(dir)) ){
 			if(numDir(ep->d_name)) {
-				directory[i] = 	(ep->d_name);
+				directory[i] = atoi( (ep->d_name) );
+				//printf("%d\t",directory[i]);
 				i++;
 			}//end if
 		}//end while
@@ -113,3 +126,4 @@ int *directoryList(void){
 	}//end else
 	return directory;
 }
+
