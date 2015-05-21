@@ -19,7 +19,8 @@ char state(int id);
 int pid;
 int directory[100000];
 char stateChar;
-
+int flag_pid;
+int flag_state;
 int main ( int argc, char *argv[] ) {
 	if (argc == 1) {
 		printf("%s\n","PID");
@@ -75,11 +76,11 @@ void commandCheck(int argc, char *argv[]){
 						printf("%s\n", "the directory is incorrect");
 						exit(0);
 					}
+					flag_pid = 1;
 					printPID(pid);
 					break;
 				case 's':
-					printf("%s\n","State option reached");
-					state(pid);
+					flag_state = 1;
 					break;
 				case 'U':
 					printf("%s\n","utime option reached");
@@ -95,6 +96,11 @@ void commandCheck(int argc, char *argv[]){
 					break;
 			}//end switch
 		}//end if
+		if (flag_pid == 1 && flag_state == 1) {
+			state(pid);
+			printf("%s%c\n","the state is ",stateChar);
+
+		}
 	}
 }
 bool checkPid(int id){
@@ -163,14 +169,3 @@ char state(int id){
 	}//end while
 	return stateChar;
 }
-
-/*./ps457.out -p 10 -s -U -S -v -c
-10	State option reached
-utime option reached
-stime option reached
-vmen option reached
-cmdline option reached
-the state is S
-[mr-fool@localhost HW]$ ./ps457.out  -s -U -S -v -c -p 10
-State option reached
-*/
