@@ -79,7 +79,9 @@ void commandCheck(int argc, char *argv[]){
 					break;
 				case 's':
 					printf("%s\n","State option reached");
-					state(pid);
+					if (pid != 0) {
+						state(pid);
+					}
 					break;
 				case 'U':
 					printf("%s\n","utime option reached");
@@ -163,3 +165,11 @@ char state(int id){
 	}//end while
 	return stateChar;
 }
+/*./ps457.out -s -U -S -v -c -p 10
+State option reached
+utime option reached
+utime option reached
+vmen option reached
+cmdline option reached
+10	the state is 
+*/
