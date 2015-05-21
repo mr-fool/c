@@ -146,7 +146,7 @@ void commandCheck(int argc, char *argv[]){
 		if (flag_stime == 1){
 			stime(directory[j]);
 		}
-		if (flag_stime == 1){
+		if (flag_vmen == 1){
 			vmen(directory[j]);
 		}//end if
 		printf("\n");
