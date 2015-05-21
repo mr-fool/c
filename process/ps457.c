@@ -163,3 +163,12 @@ char state(int id){
 	}//end for 
 	return stateChar;
 }
+/*
+./ps457.out -p 10 -s -U -S -v -c
+State option reached
+utime option reached
+utime option reached
+vmen option reached
+cmdline option reached
+Segmentation fault (core dumped)
+*/
