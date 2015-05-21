@@ -146,6 +146,7 @@ char state(int id){
     fread(content,1,size,fp); 
     //parse 
     for (i =0;i < sizeof(content); i++) {
+		printf("%s%c\n", "the content is ",content[i]);
 		switch (content[i]){
 			case 'R':
 				stateChar = 'R';
