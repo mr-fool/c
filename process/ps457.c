@@ -68,8 +68,9 @@ void commandCheck(int argc, char *argv[]){
 				case 'p':
 					pid = atoi(argv[i+1]);
 					directoryList();
-					if ( checkPid(pid) == true) {
-						printf("%s\n", "the directory is correct");
+					if ( checkPid(pid) == false) {
+						printf("%s\n", "the directory is incorrect");
+						exit(0);
 					}
 					//printPID(pid);
 					break;
