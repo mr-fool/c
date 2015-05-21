@@ -132,20 +132,20 @@ int *directoryList(void){
 	return directory;
 }
 char state(int id){
-	//int i;
+	int i;
 	//reading file
-	//FILE *fp;
+	FILE *fp;
 	char address[100000];
 	sprintf(address,"%s%d%s","/proc/",id,"/stat");
 	printf("%s%s\n","the directory is ",address);
-	/*fp=fopen("/proc/"+id, "r");
+	fp=fopen(address, "r");
 	long int size = ftell(fp);
 	rewind(fp);
 	//copying file to a string 
     char* content = calloc(size + 1, 1);
-    fread(content,1,size,fp); */
+    fread(content,1,size,fp); 
     //parse 
-    /*for (i =0;i < sizeof(content); i++) {
+    for (i =0;i < sizeof(content); i++) {
 		switch (content[i]){
 			case 'R':
 				stateChar = 'R';
@@ -163,6 +163,6 @@ char state(int id){
 				stateChar = 'T';
 				break;
 		}//end switch
-	}*/ //end for 
+	} //end for 
 	return stateChar;
 }
