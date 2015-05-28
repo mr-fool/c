@@ -40,6 +40,7 @@ FILE *file;
 int main ( int argc, char *argv[] ) {
 	if (argc == 1) {
 		printf("%s\n","PID");
+		directoryList();
 		printDirectory();
 	}
 	else if (argc > 1) {
@@ -51,7 +52,7 @@ int main ( int argc, char *argv[] ) {
 void printDirectory(void){
 	int j;
 	for (j==0; j < size; j++) {
-		printf("%d",directory[j]);
+		printf("%d\n",directory[j]);
 	}
 	
 }
@@ -186,9 +187,6 @@ int directoryList(void){
 					directory[i] = tmp;
 					i++;
 				} //end if
-				if (tmp == 0) {
-					break;
-				}
 				//directory[i] = atoi( (ep->d_name) );
 				//printf("%d\t",directory[i]);
 			}//end if
