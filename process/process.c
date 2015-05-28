@@ -39,9 +39,8 @@ FILE *file;
 
 int main ( int argc, char *argv[] ) {
 	if (argc == 1) {
-		printf("%s\n","PID");
-		directoryList();
-		printDirectory();
+		printf("No option is given, program now exit...");
+		exit(0);
 	}
 	else if (argc > 1) {
 		commandCheck(argc,argv);
