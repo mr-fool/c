@@ -1,3 +1,6 @@
-blocked ->> running means you're saying that you're using a non-multiprogramming OS where only 1 program at a time is allowed since you're ignoring the queue in ready
+blocked ->> running means you're saying that you're using a non-multiprogramming
+OS where only 1 program at a time is allowed since you're ignoring the queue in ready
 
-is not possible because you're saying that a program magically requested a system call or I/O request without going to running
+ready ->> blocked
+is not possible because you're saying that a program magically 
+requested a system call or I/O request without going to running
