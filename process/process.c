@@ -187,6 +187,7 @@ int directoryList(void){
 	int tmp = 0;
 	if (dir != NULL){
 		while( (ep = readdir(dir)) ){
+			sprintf(filename, "/proc/%s", ep->d_name);
 			if(numDir(ep->d_name)) {
 				tmp = atoi( (ep->d_name) );
 				if (tmp == 0) {
