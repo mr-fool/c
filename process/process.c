@@ -108,7 +108,7 @@ void commandCheck(int argc, char *argv[]){
 	printf("PID\t");
 	resultHeader();
 	if (flag_pid != 0) { // there is pid	
-		checkPid(pid);
+		//checkPid(pid);
 		printPID(pid);
 		if (flag_state == 1) {
 			state(pid);
@@ -132,6 +132,7 @@ void commandCheck(int argc, char *argv[]){
 	else if (pid == 0 && flag_pid == 0) {
 		int j;
 		directoryList();
+		printDirectory();
 		//int size = 5;
 		for (j=0; j < size; j++) {
 			printPID(directory[j]);
