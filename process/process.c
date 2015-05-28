@@ -189,7 +189,11 @@ int directoryList(void){
 		while( (ep = readdir(dir)) ){
 			if(numDir(ep->d_name)) {
 				sprintf(filename, "/proc/%s", ep->d_name);
-				tmp = atoi( (ep->d_name) );
+				struct stat s; 
+				stat (filename, &s);
+				if(s.st_uid == getuid()) {
+					tmp = atoi( (ep->d_name) );
+				} //end if
 				if (tmp == 0) {
 					break;
 				}
