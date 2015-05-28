@@ -1,8 +1,3 @@
-/*Jason Law 
- * Student ID 10087704
- * Tutorial 02
- * The program will fail if you do ./ps457.out -v -S -U -s -c -s -p
- * and ./ps457.out -p where pid is being flagged with no input*/
 #include <stdio.h>
 #include <stdlib.h>
 #include <sys/types.h>
