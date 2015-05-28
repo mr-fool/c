@@ -51,7 +51,7 @@ int main ( int argc, char *argv[] ) {
 }
 void printDirectory(void){
 	int j;
-	for (j==0; j < size; j++) {
+	for (j=0; j < size; j++) {
 		printf("%d\n",directory[j]);
 	}
 	
