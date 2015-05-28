@@ -6,6 +6,7 @@
 #include <string.h>
 #include <stdbool.h>
 #include <unistd.h>
+#include <sys/stat.h>
 
 //Function Prototype
 void printDirectory(void);
@@ -48,22 +49,11 @@ int main ( int argc, char *argv[] ) {
 	return 0;
 }
 void printDirectory(void){
-	//data type represents a directory stream. 
-	DIR *dir;
-	struct dirent *ep;   
-	//creating a directory stream  
-	dir = opendir ("/proc");
-	if (dir != NULL){
-		while( (ep = readdir(dir)) ){
-			if(numDir(ep->d_name)) {
-				fprintf(stdout, "%s\n", ep->d_name);	
-			}//end if
-		}//end while
-		
-	closedir (dir);
+	int j;
+	for (j==0; j < size; j++) {
+		printf("%d",directory[j]);
 	}
-	else
-    perror ("Couldn't open the directory");
+	
 }
 //iterate array to check if it is digit
 int numDir(const char* dirname) {
