@@ -183,12 +183,12 @@ int directoryList(void){
 				stat (filename, &s);
 				if(s.st_uid == getuid()) {
 					tmp = atoi( (ep->d_name) );
+					directory[i] = tmp;
 				} //end if
 				if (tmp == 0) {
 					break;
 				}
 				//directory[i] = atoi( (ep->d_name) );
-				directory[i] = tmp;
 				//printf("%d\t",directory[i]);
 				i++;
 			}//end if
