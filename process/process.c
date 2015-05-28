@@ -132,7 +132,6 @@ void commandCheck(int argc, char *argv[]){
 	else if (pid == 0 && flag_pid == 0) {
 		int j;
 		directoryList();
-		printDirectory();
 		//int size = 5;
 		for (j=0; j < size; j++) {
 			printPID(directory[j]);
