@@ -23,7 +23,7 @@ int main(int argc, char * argv[])
     char str[80];
     
     // Check for the right number of parameters
-    if (argc != 2)
+    if (argc != 3)
     {
         printf("Usage: lcm_skeleton <filename>\n");
         return -1;
