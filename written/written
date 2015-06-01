@@ -1,0 +1,13 @@
+Two-level thread model is a combination of Many-to-Many and One-to-One
+models. Describe a scenario that such a model outperforms both Many-to-Many and
+One-to-One models. You can provide a general scenario or use an arbitrary application
+program to explain your answer
+
+My answer not sure
+Background Information:
+One-to-One model
+-with the one to one model, a new kernel thread is created to handle 
+each user thread which means more overhead which slows down the system.
+The underlying implementation of the concurrency primitives affects whether, 
+say, nonblocking IO or heavy threading is better. 
+If you mix the two you can turn your concurrency solution to make the best use of the system you are running on.
