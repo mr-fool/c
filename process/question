@@ -1,9 +1,0 @@
-To a programmer, a system call looks like any other call to a library pro-
-cedure. Is it important that a programmer know which library procedures result in
-system calls? If so, why
-
-No, a programmer does not necessarily have to know which library procedures result in system call. 
-For example, web developer.  We know that system calls are handled in kernel mode which are both expensive 
-and have significant impact on the running time. Therefore, it will affect performance. With understandings
-on the operational system, programmers might not 
-know how long it will take but can base on the request calls and made an educational guess.
