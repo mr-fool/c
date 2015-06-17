@@ -30,3 +30,9 @@ int main(int argc, char *argv[]){
 		return 0;
 	}//end if 
 }
+[mr-fool@localhost banker]$ ./banker.out configBanker1.txt
+numProc is 5
+numResources is 3
+The available 2
+The available 0
+The available 4196327
