@@ -21,18 +21,17 @@ int main(int argc, char *argv[]){
 		printf("numProc is %d\n", numProc);
 		printf("numResources is %d\n", numResources);
 		int available[numResources];
+		char *availableString;
 		for (i = 0; i < numResources;i++) {
-			fscanf(f, "available = '<'%d %d %d'>' \n", &available[i]);
+			fscanf(f, "available = '<' %s'>' \n", &availableString);
 		}//end for 
-		for (int j = 0; j< numResources; j++) {
+		printf("The available string is %s\n",availableString);
+		/*for (int j = 0; j< numResources; j++) {
 			printf("The available %d\n", available[j]);
-		}
+		}*/
 		return 0;
 	}//end if 
 }
-[mr-fool@localhost banker]$ ./banker.out configBanker1.txt
 numProc is 5
 numResources is 3
-The available 2
-The available 0
-The available 4196327
+The available string is 
