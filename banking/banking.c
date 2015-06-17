@@ -21,17 +21,14 @@ int main(int argc, char *argv[]){
 		printf("numProc is %d\n", numProc);
 		printf("numResources is %d\n", numResources);
 		int available[numResources];
-		char *availableString;
+		fscanf(f, "available = <"); fscanf(f, "'>'");
 		for (i = 0; i < numResources;i++) {
-			fscanf(f, "available = '<' %s'>' \n", &availableString);
+			fscanf(f, "%d", &available[i]);	
 		}//end for 
-		printf("The available string is %s\n",availableString);
-		/*for (int j = 0; j< numResources; j++) {
+		fscanf(f, ">");
+		for (int j = 0; j< numResources; j++) {
 			printf("The available %d\n", available[j]);
-		}*/
+		}
 		return 0;
 	}//end if 
 }
-numProc is 5
-numResources is 3
-The available string is 
