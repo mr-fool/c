@@ -47,10 +47,10 @@ int main(int argc, char *argv[]){
 			fscanf(f, "P%d <"); 
 			for (i = 0; i < numResources;i++) {
 				fscanf(f, "%d", &allocation[index][i]);	
-				printf("The allocation vector is %d\n",allocation[index][i]); 
+				//printf("The allocation vector is %d\n",allocation[index][i]); 
 			}//end for 
 			fscanf(f, ">");
-			//printf("%s\n", line);
+			printf("The index is %d\n", index);
 		}//end while
 		
        fclose(f);
@@ -60,25 +60,33 @@ int main(int argc, char *argv[]){
 /*
 numProc is 5
 numResources is 3
-The allocation vector is -130876464
-The allocation vector is 32710
+The allocation vector is -1486079024
+The allocation vector is 32543
 The allocation vector is 0
+The index is 0
 The allocation vector is 0
 The allocation vector is 552
 The allocation vector is 0
-The allocation vector is 4197916
+The index is 1
+The allocation vector is 4197932
 The allocation vector is 0
 The allocation vector is 1
+The index is 2
 The allocation vector is 0
-The allocation vector is 26894352
+The allocation vector is 18059280
 The allocation vector is 0
-The allocation vector is 4197916
-The allocation vector is 0
-The allocation vector is 1
-The allocation vector is 4197916
-The allocation vector is 0
-The allocation vector is 1
-The allocation vector is 4197916
+The index is 3
+The allocation vector is 4197932
 The allocation vector is 0
 The allocation vector is 1
+The index is 4
+The allocation vector is 4197932
+The allocation vector is 0
+The allocation vector is 1
+The index is 4
+The allocation vector is 4197932
+The allocation vector is 0
+The allocation vector is 1
+The index is 4
+
 */
