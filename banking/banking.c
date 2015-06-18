@@ -45,38 +45,15 @@ int main(int argc, char *argv[]){
 				return 1;
 			}//end if
 			for (i = 0; i < numResources;i++) {
-				fscanf(f, "%d", &allocation[index][i])) || printf("didn't match %%d\n");
+				fscanf(f, "%d", &allocation[index][i]) || printf("didn't match %%d\n");
 				fscanf(f, " ");
 				printf("The allocation vector is %d\n", allocation[index][i]); 
 			fscanf(f, ">");
+			}//end for
 			//printf("%s\n", line);
+		fclose(f);
 		}//end while
 		
-       fclose(f);
 		return 0;
-	}//end if 
+	} //end else
 }
-/*
-gcc -Wall -c "banker.c" (in directory: /home/mr-fool/Documents/Assignment3-dueJune23/skeleton-code/banker)
-banker.c:9:5: warning: built-in function ‘index’ declared as non-function
- int index;
-     ^
-Compilation failed.
-banker.c: In function ‘main’:
-banker.c:42:31: warning: value computed is not used [-Wunused-value]
-    fscanf(f, "P%d <", &index) || printf("didn't match 'P%%d <'\n");
-                               ^
-banker.c:48:43: error: expected ‘;’ before ‘)’ token
-     fscanf(f, "%d", &allocation[index][i])) || printf("didn't match %%d\n");
-                                           ^
-banker.c:48:43: error: expected statement before ‘)’ token
-banker.c:48:45: error: expected expression before ‘||’ token
-     fscanf(f, "%d", &allocation[index][i])) || printf("didn't match %%d\n");
-                                             ^
-banker.c:25:7: warning: unused variable ‘max’ [-Wunused-variable]
-   int max[numProc][numResources];
-       ^
-banker.c:58:1: error: expected declaration or statement at end of input
- }
- ^
-*/
