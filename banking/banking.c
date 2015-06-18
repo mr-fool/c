@@ -57,3 +57,28 @@ int main(int argc, char *argv[]){
 		return 0;
 	}//end if 
 }
+/*
+numProc is 5
+numResources is 3
+The allocation vector is -130876464
+The allocation vector is 32710
+The allocation vector is 0
+The allocation vector is 0
+The allocation vector is 552
+The allocation vector is 0
+The allocation vector is 4197916
+The allocation vector is 0
+The allocation vector is 1
+The allocation vector is 0
+The allocation vector is 26894352
+The allocation vector is 0
+The allocation vector is 4197916
+The allocation vector is 0
+The allocation vector is 1
+The allocation vector is 4197916
+The allocation vector is 0
+The allocation vector is 1
+The allocation vector is 4197916
+The allocation vector is 0
+The allocation vector is 1
+*/
