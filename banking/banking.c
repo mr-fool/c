@@ -48,16 +48,16 @@ int main(int argc, char *argv[]){
 			}//end if
 			for (i = 0; i < numResources;i++) {
 				fscanf(f, "%d", &allocation[index][i]) || printf("didn't match %%d\n");
-				fscanf(f, " ");
 				printf("The allocation vector is %d\n", allocation[index][i]); 
 				fscanf(f, ">");
-				fscanf(f, " ");
-				/*fscanf(f, "<");
-				fscanf(f, "%d", &max[index][i]) || printf("didn't match %%d\n");
-				fscanf(f, ">");
-				printf("The max vector is %d\n", max[index][i]); */
-
 			}//end for
+			for (i = 0; i < numResources;i++) {
+				fscanf(f, " <");
+				fscanf(f, "%d", &max[index][i]) || printf("didn't match %%d\n");
+				printf("The max vector is %d\n", max[index][i]); 
+				fscanf(f, ">");
+			}//end for 
+			
 			//printf("%s\n", line);
 		}//end while
 		fclose(f);
