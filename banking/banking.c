@@ -48,12 +48,45 @@ int main(int argc, char *argv[]){
 				fscanf(f, "%d", &allocation[index][i]) || printf("didn't match %%d\n");
 				fscanf(f, " ");
 				printf("The allocation vector is %d\n", allocation[index][i]); 
-			fscanf(f, ">");
+				fscanf(f, ">");
+				fscanf(f, " ");
+				/*fscanf(f, "<");
+				fscanf(f, "%d", &max[index][i]) || printf("didn't match %%d\n");
+				fscanf(f, ">");
+				printf("The max vector is %d\n", max[index][i]); */
+
 			}//end for
 			//printf("%s\n", line);
-		fclose(f);
+		//fclose(f);
 		}//end while
 		
 		return 0;
 	} //end else
 }
+
+/*
+numProc is 5
+numResources is 3
+The allocation vector is 0
+The allocation vector is 1
+The allocation vector is 0
+The allocation vector is 2
+The allocation vector is 0
+The allocation vector is 0
+The allocation vector is 3
+The allocation vector is 0
+The allocation vector is 2
+The allocation vector is 2
+The allocation vector is 1
+The allocation vector is 1
+The allocation vector is 0
+The allocation vector is 0
+The allocation vector is 2
+didn't match 'P%d <'
+didn't match %d
+The allocation vector is 0
+didn't match %d
+The allocation vector is 0
+didn't match %d
+
+*/
