@@ -6,7 +6,8 @@
 
 int numProc;           // The number of processes
 int numResources;      // The number of resources
-int index;
+int arrayIndex;
+int pid;
 FILE *f;
 
 int main(int argc, char *argv[]){
@@ -19,8 +20,8 @@ int main(int argc, char *argv[]){
 		f = fopen(argv[1], "r"); //opening file
 		fscanf(f, "numProc = %d\n", &numProc); //reading numProc
 		fscanf(f, "numResources = %d\n", &numResources); //reading numResources
-		printf("numProc is %d\n", numProc);
-		printf("numResources is %d\n", numResources);
+		//printf("numProc is %d\n", numProc);
+		//printf("numResources is %d\n", numResources);
 		int available[numResources];
 		int max[numProc][numResources];
 		int allocation[numProc][numResources];
@@ -39,27 +40,36 @@ int main(int argc, char *argv[]){
 		size_t len = 0;
 		ssize_t read;
 		while ((read = getline(&line, &len, f)) != -1) {
-			if (fscanf(f, "P%d <", &index) <= 0){
+			if (fscanf(f, "P%d <", &arrayIndex) <= 0){
 				break;
 			};
-			if (index < 0 || index >= numProc)  {
+			if (arrayIndex < 0 || arrayIndex >= numProc)  {
 				printf("Invalid process ID: \n");
 				return 1;
 			}//end if
+			//getting allocation vector
 			for (i = 0; i < numResources;i++) {
-				fscanf(f, "%d", &allocation[index][i]) || printf("didn't match %%d\n");
-				printf("The allocation vector is %d\n", allocation[index][i]); 
+				fscanf(f, "%d", &allocation[arrayIndex][i]);
+				//printf("The allocation vector is %d\n", allocation[arrayIndex][i]); 
 				fscanf(f, ">");
 			}//end for
+			//getting max vector
 			for (i = 0; i < numResources;i++) {
 				fscanf(f, " <");
-				fscanf(f, "%d", &max[index][i]) || printf("didn't match %%d\n");
-				printf("The max vector is %d\n", max[index][i]); 
+				fscanf(f, "%d", &max[arrayIndex][i]);
+				//printf("The max vector is %d\n", max[arrayIndex][i]); 
 				fscanf(f, ">");
 			}//end for 
-			
-			//printf("%s\n", line);
 		}//end while
+		int request[numResources];
+		fscanf(f, "request %d =", &pid);
+			//printf("the pid is %d\n",pid);
+		for (i = 0; i < numResources;i++) {
+			fscanf(f, " <");
+			fscanf(f, "%d", &request[i]);
+			//printf("The request vector is %d\n", request[i]); 
+			fscanf(f, ">");
+			}//end for
 		fclose(f);
 		
 		return 0;
