@@ -39,7 +39,7 @@ int main(int argc, char *argv[]){
 		size_t len = 0;
 		ssize_t read;
 		while ((read = getline(&line, &len, f)) != -1) {
-			if (fscanf(f, "P%d <", &index) != 0){
+			if (fscanf(f, "P%d <", &index) <= 0){
 				break;
 			};
 			if (index < 0 || index >= numProc)  {
@@ -65,11 +65,3 @@ int main(int argc, char *argv[]){
 		return 0;
 	} //end else
 }
-/*
-mr-fool@localhost banker]$ ./banker.out configBanker1.txt
-numProc is 5
-numResources is 3
-[mr-fool@localhost banker]$ 
-
-
-*/
