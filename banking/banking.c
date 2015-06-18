@@ -39,18 +39,17 @@ int main(int argc, char *argv[]){
 		size_t len = 0;
 		ssize_t read;
 		while ((read = getline(&line, &len, f)) != -1) {
-			fscanf(f, "P%d", &index);
+			fscanf(f, "P%d <", &index) || printf("didn't match 'P%%d <'\n");
 			if (index < 0 || index >= numProc)  {
 				printf("Invalid process ID: \n");
 				return 1;
 			}//end if
-			fscanf(f, "P%d <"); 
 			for (i = 0; i < numResources;i++) {
-				fscanf(f, "%d", &allocation[index][i]);	
-				//printf("The allocation vector is %d\n",allocation[index][i]); 
-			}//end for 
+				fscanf(f, "%d", &allocation[index][i])) || printf("didn't match %%d\n");
+				fscanf(f, " ");
+				printf("The allocation vector is %d\n", allocation[index][i]); 
 			fscanf(f, ">");
-			printf("The index is %d\n", index);
+			//printf("%s\n", line);
 		}//end while
 		
        fclose(f);
@@ -58,35 +57,26 @@ int main(int argc, char *argv[]){
 	}//end if 
 }
 /*
-numProc is 5
-numResources is 3
-The allocation vector is -1486079024
-The allocation vector is 32543
-The allocation vector is 0
-The index is 0
-The allocation vector is 0
-The allocation vector is 552
-The allocation vector is 0
-The index is 1
-The allocation vector is 4197932
-The allocation vector is 0
-The allocation vector is 1
-The index is 2
-The allocation vector is 0
-The allocation vector is 18059280
-The allocation vector is 0
-The index is 3
-The allocation vector is 4197932
-The allocation vector is 0
-The allocation vector is 1
-The index is 4
-The allocation vector is 4197932
-The allocation vector is 0
-The allocation vector is 1
-The index is 4
-The allocation vector is 4197932
-The allocation vector is 0
-The allocation vector is 1
-The index is 4
-
+gcc -Wall -c "banker.c" (in directory: /home/mr-fool/Documents/Assignment3-dueJune23/skeleton-code/banker)
+banker.c:9:5: warning: built-in function ‘index’ declared as non-function
+ int index;
+     ^
+Compilation failed.
+banker.c: In function ‘main’:
+banker.c:42:31: warning: value computed is not used [-Wunused-value]
+    fscanf(f, "P%d <", &index) || printf("didn't match 'P%%d <'\n");
+                               ^
+banker.c:48:43: error: expected ‘;’ before ‘)’ token
+     fscanf(f, "%d", &allocation[index][i])) || printf("didn't match %%d\n");
+                                           ^
+banker.c:48:43: error: expected statement before ‘)’ token
+banker.c:48:45: error: expected expression before ‘||’ token
+     fscanf(f, "%d", &allocation[index][i])) || printf("didn't match %%d\n");
+                                             ^
+banker.c:25:7: warning: unused variable ‘max’ [-Wunused-variable]
+   int max[numProc][numResources];
+       ^
+banker.c:58:1: error: expected declaration or statement at end of input
+ }
+ ^
 */
