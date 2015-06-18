@@ -6,6 +6,7 @@
 
 int numProc;           // The number of processes
 int numResources;      // The number of resources
+int index;
 FILE *f;
 
 int main(int argc, char *argv[]){
@@ -15,20 +16,44 @@ int main(int argc, char *argv[]){
 	}
 	else {
 		int i;
-		f = fopen(argv[1], "r");
-		fscanf(f, "numProc = %d\n", &numProc);
-		fscanf(f, "numResources = %d\n", &numResources);
+		f = fopen(argv[1], "r"); //opening file
+		fscanf(f, "numProc = %d\n", &numProc); //reading numProc
+		fscanf(f, "numResources = %d\n", &numResources); //reading numResources
 		printf("numProc is %d\n", numProc);
 		printf("numResources is %d\n", numResources);
 		int available[numResources];
-		fscanf(f, "available = <"); fscanf(f, "'>'");
+		int max[numProc][numResources];
+		int allocation[numProc][numResources];
+		fscanf(f, "available = <"); 
 		for (i = 0; i < numResources;i++) {
 			fscanf(f, "%d", &available[i]);	
 		}//end for 
 		fscanf(f, ">");
-		for (int j = 0; j< numResources; j++) {
+		//debug
+		/*for (int j = 0; j< numResources; j++) {
 			printf("The available %d\n", available[j]);
-		}
+		}*/
+		
+		//reading the rest of the file
+		char * line = NULL;
+		size_t len = 0;
+		ssize_t read;
+		while ((read = getline(&line, &len, f)) != -1) {
+			fscanf(f, "P%d", &index);
+			if (index < 0 || index >= numProc)  {
+				printf("Invalid process ID: \n");
+				return 1;
+			}//end if
+			fscanf(f, "P%d <"); 
+			for (i = 0; i < numResources;i++) {
+				fscanf(f, "%d", &allocation[index][i]);	
+				printf("The allocation vector is %d\n",allocation[index][i]); 
+			}//end for 
+			fscanf(f, ">");
+			//printf("%s\n", line);
+		}//end while
+		
+       fclose(f);
 		return 0;
 	}//end if 
 }
