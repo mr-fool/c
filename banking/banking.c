@@ -39,7 +39,9 @@ int main(int argc, char *argv[]){
 		size_t len = 0;
 		ssize_t read;
 		while ((read = getline(&line, &len, f)) != -1) {
-			fscanf(f, "P%d <", &index) || printf("didn't match 'P%%d <'\n");
+			if (fscanf(f, "P%d <", &index) != 0){
+				break;
+			};
 			if (index < 0 || index >= numProc)  {
 				printf("Invalid process ID: \n");
 				return 1;
@@ -57,36 +59,17 @@ int main(int argc, char *argv[]){
 
 			}//end for
 			//printf("%s\n", line);
-		//fclose(f);
 		}//end while
+		fclose(f);
 		
 		return 0;
 	} //end else
 }
-
 /*
+mr-fool@localhost banker]$ ./banker.out configBanker1.txt
 numProc is 5
 numResources is 3
-The allocation vector is 0
-The allocation vector is 1
-The allocation vector is 0
-The allocation vector is 2
-The allocation vector is 0
-The allocation vector is 0
-The allocation vector is 3
-The allocation vector is 0
-The allocation vector is 2
-The allocation vector is 2
-The allocation vector is 1
-The allocation vector is 1
-The allocation vector is 0
-The allocation vector is 0
-The allocation vector is 2
-didn't match 'P%d <'
-didn't match %d
-The allocation vector is 0
-didn't match %d
-The allocation vector is 0
-didn't match %d
+[mr-fool@localhost banker]$ 
+
 
 */
