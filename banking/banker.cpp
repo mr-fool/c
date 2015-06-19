@@ -162,12 +162,9 @@ int main (int argc, char * const argv[])
 		//first stage
 		for (j=0; j< numResources;j++) {
 			available[j] = available[j] - request[j];
-			printf("available %d\n",available[j]);
-			printf("request is %d\n", request[j]);
 			allocation[pid][j] = allocation[pid][j] + request[j];
-			printf("allocation %d\n",allocation[pid][j]);
 			need[pid][j] = need[pid][j] - request[j];
-			work[j] = work[j] + allocation[pid][j];
+			work[j] = available[j] + allocation[pid][j];
 			printf("work %d\n",work[j]);
 		}//end for
 		completed[pid] = true;
