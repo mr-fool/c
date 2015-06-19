@@ -164,9 +164,9 @@ int main (int argc, char * const argv[])
 			available[j] = available[j] - request[j];
 			allocation[pid][j] = allocation[pid][j] + request[j];
 			need[pid][j] = need[pid][j] - request[j];
-			printf("The need vector in stage 1 %d\n",need[pid][j]);
+			//printf("The need vector in stage 1 %d\n",need[pid][j]);
 			work[j] = available[j] + allocation[pid][j];
-			printf("work %d\n",work[j]);
+			//printf("work %d\n",work[j]);
 		}//end for
 		completed[pid] = true;
 		printf("the sequence is P%d, ", pid);
@@ -177,18 +177,19 @@ int main (int argc, char * const argv[])
 				//printf("The need vector P%d is %d ", i,need[i][j]);
 				if (need[i][j] <= work[j]) {
 					count1++;
-					printf("The count1 is %d\n", count1);
+					//printf("The count1 is %d\n", count1);
 				}//end if
 			}//end inner for 
 			//printf("\n");
 			if (count1 == numResources && completed[i] == false) {
 				for (j=0; j< numResources;j++) {
 					work[j] = work[j] + allocation[i][j];
-					printf("correct condition and work %d ", work[j]);
+					//printf("correct condition and work %d ", work[j]);
 				}//end for
 				printf("\n");
 				completed[i] = true; 
 				printf("P%d, ", i);
+				i = 0;
 			}//end if
 			count1 = 0;
 		}//end for  
@@ -204,27 +205,3 @@ int main (int argc, char * const argv[])
     delete[] max;
     delete[] allocation;    
 }
-/*
-./banker.out configBanker1.txt
-The need vector in stage 1 0
-work 5
-The need vector in stage 1 2
-work 3
-The need vector in stage 1 0
-work 2
-the sequence is P1, The count1 is 1
-The count1 is 2
-The count1 is 3
-The count1 is 1
-The count1 is 2
-The count1 is 1
-The count1 is 2
-The count1 is 3
-correct condition and work 7 correct condition and work 4 correct condition and work 3 
-P3, The count1 is 1
-The count1 is 2
-The count1 is 3
-correct condition and work 7 correct condition and work 4 correct condition and work 5 
-P4, 
-
-*/
