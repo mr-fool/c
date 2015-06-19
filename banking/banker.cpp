@@ -161,9 +161,9 @@ int main (int argc, char * const argv[])
 			allocation[pid][j] = allocation[pid][j] + request[j];
 			need[pid][j] = need[pid][j] - request[j];
 			work[j] = work[j] + allocation[pid][j];
+			printf("work %d\n",work[j]);
 		}//end for
 		completed[pid] = true;
-		printf("the completed %d\n",completed[pid]);
 		printf("the sequence is P%d, ", pid);
 		//second stage
 		for (i=0; i < numProc;i++) {
@@ -188,8 +188,11 @@ int main (int argc, char * const argv[])
     delete[] allocation;    
 }
 /*
-./banker.out configBanker2.txt
-the completed 1
-the sequence is P0, P1, P2, P3, P4, 
+./banker.out configBanker1.txt
+work -2014895213
+work 32764
+work 1600033016
+the sequence is P1, P0, P2, P3, P4, 
+
 
 */
