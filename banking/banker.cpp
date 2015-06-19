@@ -142,9 +142,9 @@ int main (int argc, char * const argv[])
 			exit(1);
 			}//end if
 	}//end for
-	int completed[numProc];
+	bool completed[numProc];
 	for (i=0; i < numProc;i++) {
-		completed[i]=0;
+		completed[i]=false;
 	}//end for 
 	for (j=0; j< numResources;j++) {
 		if (request[j] <= need[pid][j] && request[j] <= available[j]) {
@@ -152,40 +152,31 @@ int main (int argc, char * const argv[])
 		}//end if 	
 	}//end for 
 	//request granted
+	int work[numResources];
+	int safeSequence[numProc];
 	if (requestCheck == numResources) {
-		while (count1 !=numProc) {
-			count2 = count1;
-			for (i=0; i < numProc;i++) {
-				for (j=0; j < numProc;j++){
-					if (need[i][j] <=available[j]) {
-						k++;
-					}//end if
-				}//end inner for
-			if ( k==numResources && completed[i] == 0) {
-				printf("P%d ",i);
-				completed[i]=1;
-				for (j =0; j< numResources;j++) {
-					available[j] = available[j] + allocation[i][j];
-				}//end inner for
-				count1++;
-			}//end if 
-			k =0;
-			}//end for 
-			if (count1 ==count2) {
-				printf("deadlock\n");
-				break;
+		//first stage
+		for (j=0; j< numResources;j++) {
+			available[j] = available[j] - request[j];
+			allocation[pid][j] = allocation[pid][j] + request[j];
+			need[pid][j] = need[pid][j] - request[j];
+			work[j] = work[j] + allocation[pid][j];
+		}//end for
+		completed[pid] = true;
+		printf("the completed %d\n",completed[pid]);
+		printf("the sequence is P%d, ", pid);
+		//second stage
+		for (i=0; i < numProc;i++) {
+			if (completed[i]==false && need[i][j] <= work[j]){
+				for (j=0; j< numResources;j++) {
+					completed[i] = true;
+					work[j] = work[j] + allocation[i][j];
+				}//end for 
 			}//end if
-		}//end while
+		printf("P%d, ", i);
+		}//end for  
+		printf("\n");
 	}//end if
-	
-    if (isSafe(safeFlag))
-        cout << "Safe execution order: " << sequence << ". Grant request "
-            << reqStr << " from P" << pid << "." << endl;
-    else
-        cout << "Fake Potential deadlock among processes. Reject request " << reqStr
-            << " from P" << pid << "." << endl;
-    
-    
     // Free all allocated memory space
     delete[] available;
     for (int i = 0; i < numProc; i++)
@@ -198,6 +189,6 @@ int main (int argc, char * const argv[])
 }
 /*
 ./banker.out configBanker1.txt
-P2 P3 P0 deadlock
-Fake Potential deadlock among processes. Reject request <1 0 2> from P1.
+the completed 1
+the sequence is P1, P0, P1, P2, P3, P4, 
 */
