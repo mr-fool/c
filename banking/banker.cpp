@@ -1,16 +1,3 @@
-/*
- * banker.cpp
- * The Banker's Algorithm for deadlock avoidance.
- *
- * Student Name:
- * Student Number:
- * 
- * Class: CPSC 457 Spring 2015
- * Instructor: M. Reza Zakerinasab
- *
- * Copyright 2015 University of Calgary. All rights reserved.
- */
-
 #include <iostream>
 #include <fstream>
 #include <sstream>
@@ -21,9 +8,17 @@ using namespace std;
 
 
 // You should pass the proper parameters to this function and implement the banker's algorithm inside
-bool isSafe ()
+int safeFlag = 0;
+int count1;
+int count2;
+int requestCheck;
+int k;
+bool isSafe (int safeFlag)
 {
-    return true;
+	if (safeFlag == 1){
+		return true;
+	}
+	return false;
 }
 
 int main (int argc, char * const argv[])
@@ -124,12 +119,70 @@ int main (int argc, char * const argv[])
         
         
     // Check the request using the Banker's algorithm. 
-	// You need to pass the required parameters to this function and implement the Banker's algorithm inside.
-    if (isSafe())
+    // Get the need vector
+    int need[numProc][numResources];
+	for (i =0;i < numProc;i++){
+		for ( j = 0;j < numResources;j++){
+			need[i][j] = max[i][j] - allocation[i][j];
+			//printf("The need array %d\n", need[i][j]);
+		}//end inner for 
+		//printf("\n");
+	}//end for 
+	//printf("The pid is %d\n", pid);
+	
+	//initial request check
+	for (j=0; j< numResources;j++) {
+		if (request[j] > need[pid][j] && request[j] > available[j]){
+			printf("Potential deadlock among processes. Reject request <");
+			while (j< numResources) {
+				printf("%d ",request[j]);
+				j++;
+			}//end  while
+			printf("\b> from P%d\n",pid); 
+			exit(1);
+			}//end if
+	}//end for
+	int completed[numProc];
+	for (i=0; i < numProc;i++) {
+		completed[i]=0;
+	}//end for 
+	for (j=0; j< numResources;j++) {
+		if (request[j] <= need[pid][j] && request[j] <= available[j]) {
+			requestCheck++;
+		}//end if 	
+	}//end for 
+	//request granted
+	if (requestCheck == numResources) {
+		while (count1 !=numProc) {
+			count2 = count1;
+			for (i=0; i < numProc;i++) {
+				for (j=0; j < numProc;j++){
+					if (need[i][j] <=available[j]) {
+						k++;
+					}//end if
+				}//end inner for
+			if ( k==numResources && completed[i] == 0) {
+				printf("P%d ",i);
+				completed[i]=1;
+				for (j =0; j< numResources;j++) {
+					available[j] = available[j] + allocation[i][j];
+				}//end inner for
+				count1++;
+			}//end if 
+			k =0;
+			}//end for 
+			if (count1 ==count2) {
+				printf("deadlock\n");
+				break;
+			}//end if
+		}//end while
+	}//end if
+	
+    if (isSafe(safeFlag))
         cout << "Safe execution order: " << sequence << ". Grant request "
             << reqStr << " from P" << pid << "." << endl;
     else
-        cout << "Potential deadlock among processes. Reject request " << reqStr
+        cout << "Fake Potential deadlock among processes. Reject request " << reqStr
             << " from P" << pid << "." << endl;
     
     
@@ -143,3 +196,8 @@ int main (int argc, char * const argv[])
     delete[] max;
     delete[] allocation;    
 }
+/*
+./banker.out configBanker1.txt
+P2 P3 P0 deadlock
+Fake Potential deadlock among processes. Reject request <1 0 2> from P1.
+*/
