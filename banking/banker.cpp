@@ -132,7 +132,7 @@ int main (int argc, char * const argv[])
 	
 	//initial request check
 	for (j=0; j< numResources;j++) {
-		if (request[j] > need[pid][j] && request[j] > available[j]){
+		if (request[j] > need[pid][j] || request[j] > available[j]){
 			printf("Potential deadlock among processes. Reject request <");
 			while (j< numResources) {
 				printf("%d ",request[j]);
@@ -188,7 +188,8 @@ int main (int argc, char * const argv[])
     delete[] allocation;    
 }
 /*
-./banker.out configBanker1.txt
+./banker.out configBanker2.txt
 the completed 1
-the sequence is P1, P0, P1, P2, P3, P4, 
+the sequence is P0, P1, P2, P3, P4, 
+
 */
