@@ -184,17 +184,21 @@ int main (int argc, char * const argv[])
 			if (count1 == numResources && completed[i] == false) {
 				for (j=0; j< numResources;j++) {
 					work[j] = work[j] + allocation[i][j];
-					//printf("correct condition and work %d ", work[j]);
+					printf("work line 187 %d \n", work[j]);
 				}//end for
-				printf("\n");
 				completed[i] = true; 
 				printf("P%d, ", i);
 				i = 0;
+				j=0;
+				printf("i being reset %d \n",i);
 			}//end if
 			count1 = 0;
 		}//end for  
 		printf("\n");
 	}//end if
+	for (j=0; j< numProc;j++) {
+		printf("the completed %d status: %d\n", j, completed[j]);
+	}//end for 
     // Free all allocated memory space
     delete[] available;
     for (int i = 0; i < numProc; i++)
@@ -205,3 +209,25 @@ int main (int argc, char * const argv[])
     delete[] max;
     delete[] allocation;    
 }
+/*
+./banker.out configBanker1.txt
+the sequence is P1, work line 187 7 
+work line 187 4 
+work line 187 3 
+P3, i being reset 0 
+work line 187 10 
+work line 187 4 
+work line 187 5 
+P2, i being reset 0 
+work line 187 10 
+work line 187 4 
+work line 187 7 
+P4, i being reset 0 
+
+the completed 0 status: 0
+the completed 1 status: 1
+the completed 2 status: 1
+the completed 3 status: 1
+the completed 4 status: 1
+
+*/
