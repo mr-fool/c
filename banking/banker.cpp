@@ -164,20 +164,33 @@ int main (int argc, char * const argv[])
 			available[j] = available[j] - request[j];
 			allocation[pid][j] = allocation[pid][j] + request[j];
 			need[pid][j] = need[pid][j] - request[j];
+			printf("The need vector in stage 1 %d\n",need[pid][j]);
 			work[j] = available[j] + allocation[pid][j];
 			printf("work %d\n",work[j]);
 		}//end for
 		completed[pid] = true;
 		printf("the sequence is P%d, ", pid);
+		count1 = 0;
 		//second stage
 		for (i=0; i < numProc;i++) {
-			if (completed[i]==false && need[i][j] <= work[j]){
+			for (j=0; j< numResources;j++) {
+				//printf("The need vector P%d is %d ", i,need[i][j]);
+				if (need[i][j] <= work[j]) {
+					count1++;
+					printf("The count1 is %d\n", count1);
+				}//end if
+			}//end inner for 
+			//printf("\n");
+			if (count1 == numResources && completed[i] == false) {
 				for (j=0; j< numResources;j++) {
-					completed[i] = true;
 					work[j] = work[j] + allocation[i][j];
-				}//end for 
+					printf("correct condition and work %d ", work[j]);
+				}//end for
+				printf("\n");
+				completed[i] = true; 
 				printf("P%d, ", i);
 			}//end if
+			count1 = 0;
 		}//end for  
 		printf("\n");
 	}//end if
@@ -193,13 +206,25 @@ int main (int argc, char * const argv[])
 }
 /*
 ./banker.out configBanker1.txt
+The need vector in stage 1 0
 work 5
+The need vector in stage 1 2
 work 3
+The need vector in stage 1 0
 work 2
-the sequence is P1, P0, P2, P3, P4, 
-[mr-fool@localhost banker]$ ./banker.out configBanker2.txt
-work 2
-work 4
-work 0
-the sequence is P0, P1, P2, P3, P4, 
+the sequence is P1, The count1 is 1
+The count1 is 2
+The count1 is 3
+The count1 is 1
+The count1 is 2
+The count1 is 1
+The count1 is 2
+The count1 is 3
+correct condition and work 7 correct condition and work 4 correct condition and work 3 
+P3, The count1 is 1
+The count1 is 2
+The count1 is 3
+correct condition and work 7 correct condition and work 4 correct condition and work 5 
+P4, 
+
 */
