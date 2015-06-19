@@ -172,8 +172,8 @@ int main (int argc, char * const argv[])
 					completed[i] = true;
 					work[j] = work[j] + allocation[i][j];
 				}//end for 
+				printf("P%d, ", i);
 			}//end if
-		printf("P%d, ", i);
 		}//end for  
 		printf("\n");
 	}//end if
