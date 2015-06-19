@@ -194,17 +194,3 @@ int main (int argc, char * const argv[])
     delete[] max;
     delete[] allocation;    
 }
-/*
-./banker.out configBanker1.txt
-available 2
-allocation 13893664
-work 2143708851
-available 3
-allocation 13893728
-work 32765
-available 0
-allocation 13893792
-work 514699512
-the sequence is P1, P0, P2, P3, P4, 
-
-*/
