@@ -158,7 +158,9 @@ int main (int argc, char * const argv[])
 		//first stage
 		for (j=0; j< numResources;j++) {
 			available[j] = available[j] - request[j];
+			printf("available %d\n",available[j]);
 			allocation[pid][j] = allocation[pid][j] + request[j];
+			printf("allocation %d\n",allocation[j]);
 			need[pid][j] = need[pid][j] - request[j];
 			work[j] = work[j] + allocation[pid][j];
 			printf("work %d\n",work[j]);
@@ -189,10 +191,15 @@ int main (int argc, char * const argv[])
 }
 /*
 ./banker.out configBanker1.txt
-work -2014895213
-work 32764
-work 1600033016
+available 2
+allocation 13893664
+work 2143708851
+available 3
+allocation 13893728
+work 32765
+available 0
+allocation 13893792
+work 514699512
 the sequence is P1, P0, P2, P3, P4, 
-
 
 */
