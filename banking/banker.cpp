@@ -191,3 +191,15 @@ int main (int argc, char * const argv[])
     delete[] max;
     delete[] allocation;    
 }
+/*
+./banker.out configBanker1.txt
+work 5
+work 3
+work 2
+the sequence is P1, P0, P2, P3, P4, 
+[mr-fool@localhost banker]$ ./banker.out configBanker2.txt
+work 2
+work 4
+work 0
+the sequence is P0, P1, P2, P3, P4, 
+*/
