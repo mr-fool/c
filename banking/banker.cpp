@@ -95,9 +95,10 @@ int main (int argc, char * const argv[])
         }
         
         // Get the number of resources allocated to process "index".
-        for (j = 0; j < numResources; j++)
+        for (j = 0; j < numResources; j++) {
             iss >> allocation[index][j];
-        
+            //printf("The line 100 allocation = %d\n",allocation[index][j]);
+        }//end for
         // Get the max allocation to process "index".
         for (j = 0; j < numResources; j++)
             iss >> max[index][j];
@@ -153,14 +154,18 @@ int main (int argc, char * const argv[])
 	}//end for 
 	//request granted
 	int work[numResources];
+	for (i=0; i < numResources; i++) {
+		work[i] = 0;
+	}//end for 
 	int safeSequence[numProc];
 	if (requestCheck == numResources) {
 		//first stage
 		for (j=0; j< numResources;j++) {
 			available[j] = available[j] - request[j];
 			printf("available %d\n",available[j]);
+			printf("request is %d\n", request[j]);
 			allocation[pid][j] = allocation[pid][j] + request[j];
-			printf("allocation %d\n",allocation[j]);
+			printf("allocation %d\n",allocation[pid][j]);
 			need[pid][j] = need[pid][j] - request[j];
 			work[j] = work[j] + allocation[pid][j];
 			printf("work %d\n",work[j]);
